@@ -73,19 +73,14 @@ During the visualization step, I encountered the following error:
 An error occurred: 'seaborn' is not a valid package style, path of style file, URL of style file, or library style name (library styles are listed in `style.available`)
 ```
 
-This happened because recent versions of matplotlib no longer recognize `'seaborn'` as a valid style name. Instead, the correct style names are now `'seaborn-v0_8'`, `'seaborn-darkgrid'`, and similar.
+Initially, I tried to set the plot style using `plt.style.use('seaborn')` and other similar style names, but none of these worked with my matplotlib version.
 
 **How I solved it:**  
-I updated the line in my code from:
+Instead of using `plt.style.use`, I set the style directly with seaborn using:
 ```python
-plt.style.use('seaborn')
+sns.set(style="darkgrid")
 ```
-
-to:
-```python
-plt.style.use('seaborn-darkgrid')
-```
-This change allowed the script to run successfully and apply the intended visual style to my plots.
+This approach worked perfectly and applied the intended visual style to my plots.
 
 ---
 
@@ -101,6 +96,35 @@ This change allowed the script to run successfully and apply the intended visual
    python data_analysis.py
    ```
    Alternatively, open the notebook in Jupyter for an interactive experience.
+
+---
+
+## Sample Output
+
+When you run the script, you will see:
+- Console output showing the first few rows of the dataset, data info, missing value check, descriptive statistics, and mean values by species.
+- A window with four plots:
+    - **Line Chart:** Sepal length patterns for each species.
+    - **Bar Chart:** Average petal length by species.
+    - **Histogram:** Distribution of sepal width for each species.
+    - **Scatter Plot:** Sepal length vs. petal length, colored by species.
+
+Example console output:
+```
+First few rows of the dataset:
+   sepal length (cm)  sepal width (cm)  petal length (cm)  petal width (cm)  target  species
+0                5.1               3.5                1.4               0.2     0.0   setosa
+1                4.9               3.0                1.4               0.2     0.0   setosa
+2                4.7               3.2                1.3               0.2     0.0   setosa
+3                4.6               3.1                1.5               0.2     0.0   setosa
+4                5.0               3.6                1.4               0.2     0.0   setosa
+
+Dataset Info:
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 150 entries, 0 to 149
+...
+```
+And a figure with four well-labeled plots for visual analysis.
 
 ---
 
